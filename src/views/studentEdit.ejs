@@ -1,0 +1,53 @@
+<%- include('partials/_header') -%>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/update/<%= data.id_student %>" method="POST" class="d-grid gap-2">
+                        <div class="form-group">
+                            <label for="id">ID number:</label>
+                            <input id="id" type="number" name="id"
+                            value="<%= data.id_student %>" placeholder="Enter ID number" class="form-control">
+                            <small></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input id="name" type="text" name="name"
+                            value="<%= data.student_name %>" placeholder="Enter full name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input id="age" type="number" name="age"
+                            value="<%= data.student_age %>" placeholder="Enter age" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">Genre: </label>
+                            <select name="genre" id="genre" class="form-select">
+                                <% if (data.student_genre == 'Male'){ %>
+                                    <option value="Male" selected>Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="No-binary">No binary</option>
+                                <% } %>
+                                <% if (data.student_genre == 'Female'){ %>
+                                    <option value="Male">Male</option>
+                                    <option value="Female" selected>Female</option>
+                                    <option value="No-binary">No binary</option>
+                                <% } %>
+                                <% if (data.student_genre == 'No-binary'){ %>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="No-binary" selected>No binary</option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/_footer') -%>

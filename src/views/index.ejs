@@ -1,0 +1,99 @@
+<%- include('partials/_header') -%>
+
+<div class="container">
+    <div class="row mt-5">
+        <% if ( msg ) { %>
+            <div class="alert alert-dismissible <%= msg.class %>" id="alert">
+                <div class="toast-header">
+                    <h4 class="alert-heading me-auto"><%= msg.alert %>!</h4>
+                    <small id="seg">closing in ...0seg</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                <div class="toast-body">
+                    <p class="mb-0"><%= msg.content %>
+                        <% if (msg.student) { %>
+                            Name: 
+                            <a href="#<%= msg.student.id %>">
+                                <%= msg.student.name %>
+                            </a>
+                        <% } %>
+                    </p>
+                </div>
+            </div>
+        <% } %>
+        <div class="col-md-7 ">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr class="table-dark">
+                        <!-- <th>n°</th> -->
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Genre</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if ( students ) { %>
+                        <% for (let i = 0; i < students.length; i++) { %>
+                            <tr id="<%= students[i].id_student %>">
+                                <!-- <td><%= (i + 1) %></td> -->
+                                <td><%= students[i].id_student %></td>
+                                <td><%= students[i].student_name %></td>
+                                <td><%= students[i].student_age %></td>
+                                <td><%= students[i].student_genre %></td>
+                                <td class="d-grid gap-2 d-md-block">
+                                    <a href="/update/<%= students[i].id_student %>" class="btn btn-info">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/delete/<%= students[i].id_student %>" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <% } %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="6">null</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add" method="POST" class="d-grid gap-2">
+                        <div class="form-group">
+                            <label for="id">ID number:</label>
+                            <input id="id" type="number" name="id"
+                            placeholder="Enter ID number" class="form-control">
+                            <small></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input id="name" type="text" name="name"
+                            placeholder="Enter full name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input id="age" type="number" name="age"
+                            placeholder="Enter age" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">Genre: </label>
+                            <select name="genre" id="genre" class="form-select">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="No-binary" selected>No binary</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/_footer') -%>
